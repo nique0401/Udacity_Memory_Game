@@ -5,9 +5,13 @@ let sCards = shuffle(cards);
 let wait = 420;
 let match = 0;
 let moves = 0;
-let stars3 = 5;
-let stars2 = 8;
-let stars1 = 10;
+let stars3 = 14;
+let stars2 = 18;
+let stars1 = 22;
+let totalmatches = cards.length / 2;
+let second = 0;
+let nowTime;
+let start = new Date;
 
 
 // Shuffle function from http://stackoverflow.com/a/2450976
@@ -36,12 +40,16 @@ function init() {
   $('.deck').append($('<li class="card"><i id="' + sCards[i] + '" class="fa fa-' + sCards[i] + '"></i></li>'))
 
   addCardListener();
+  resetTimer(nowTime);
+  second = 0;
+  initTime();
  }
 }
 
 //This function listens for clicks, and decides if the cards match or dont match.
 function addCardListener() {
  $('.deck').find('.card').on('click', function() {
+
   if ($(this).hasClass('show') || $(this).hasClass('match')) {
    return true;
   }
@@ -71,16 +79,18 @@ function addCardListener() {
       $('.moves').text(moves + ' Move');
      } else {
       $('.moves').text(moves + ' Moves');
-      console.log(moves);
      }
-     console.log(moves);
     }, wait / 1.5);
-
    }
    opened = [];
    moves++
    rating(moves);
+   console.log(totalmatches);
+   console.log(match);
+   if(totalmatches === match) {
+     endGame(moves,rating);
 
+   }
   }
  })
 }
@@ -98,11 +108,25 @@ function rating(moves) {
   $('.fa-star').eq(0).removeClass('fa-star').addClass('fa-star-o');
   rating = 1;
  }
- return {
-  score: rating
- };
-
+ return { score: rating };
 }
 
 
+function initTime() {
+  nowTime = setInterval(function () {
+    $('.Timer').text(Math.round((new Date - start) / 1000, 0) + " Seconds");
+    second++;
+  }, wait);
+}
+
+function resetTimer(timer) {
+  $('.restart').on('click', function() {
+    for (i = 0; i < sCards.length; i++) {
+     $('.card').remove();
+     start=new Date;
+     init();
+  };
+
+});
+}
 init();
