@@ -26,10 +26,14 @@ function shuffle(array) {
     return array;
 }
 
-shuffle(cards);
-console.log(cards);
+function init() {
+  var sCards = shuffle(cards);
+  for (i=0; i < sCards.length; i++) {
+    $('.deck').append($('<li class="card"><i class="fa fa-' + sCards[i] + '"></i></li>'))
+  }
+}
 
-
+init();
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
