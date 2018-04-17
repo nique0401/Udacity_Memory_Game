@@ -2,7 +2,9 @@
  * Create a list that holds all of your cards
  */
 let cards = ['diamond', 'diamond', 'paper-plane-o', 'paper-plane-o', 'anchor', 'anchor', 'bolt', 'bolt', 'cube', 'cube', 'leaf', 'leaf', 'bicycle', 'bicycle', 'bomb', 'bomb'];
-
+let opened = [];
+let sCards = shuffle(cards);
+let wait = 420;
 
 /*
  * Display the cards on the page
@@ -29,9 +31,39 @@ function shuffle(array) {
 function init() {
   var sCards = shuffle(cards);
   for (i=0; i < sCards.length; i++) {
-    $('.deck').append($('<li class="card"><i class="fa fa-' + sCards[i] + '"></i></li>'))
+    $('.deck').append($('<li class="card"><i id="'+sCards[i]+'" class="fa fa-' + sCards[i] + '"></i></li>'))
+
+    addCardListener();
   }
 }
+
+function addCardListener() {
+  $('.deck').find('.card').on('click', function() {
+    if ($(this).hasClass('show') || $(this).hasClass('match')) {return true; }
+    var card = $(this).children().attr('class');
+    $(this).addClass('open show');
+    opened.push(card);
+    console.log(sCards);
+    console.log(opened);
+    if (opened.length > 1) {
+      if (card === opened[0]) {
+        $('.deck').find('.open').addClass('match');
+        setTimeout(function () {
+          $('.deck').find('.open').removeClass('open show');
+        }, wait);
+        match++
+      }else {
+        $('.deck').find('.open').addClass('notmatch');
+        setTimeout(function () {
+          $('.deck').find('.open').removeClass('open show');
+        }, wait / 1.5);
+      }
+        opened = []
+      }
+
+  })
+}
+
 
 init();
 /*
