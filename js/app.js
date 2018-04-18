@@ -7,7 +7,7 @@ let moves = 0;
 let stars3 = 14;
 let stars2 = 18;
 let stars1 = 22;
-let rating = 0
+let rating = 0;
 let totalmatches = cards.length / 2;
 let second = 0;
 let nowTime;
@@ -24,13 +24,14 @@ function shuffle(array) {
   temporaryValue = array[currentIndex];
   array[currentIndex] = array[randomIndex];
   array[randomIndex] = temporaryValue;
-}
+ }
  return array;
 }
 
 
 //initiate game
 function init() {
+
  match = 0;
  moves = 0;
  $('.moves').text(moves + ' Moves');
@@ -47,7 +48,9 @@ function init() {
 //This function listens for clicks, and decides if the cards match or dont match.
 function addCardListener() {
  $('.deck').find('.card').on('click', function() {
-  if ($(this).hasClass('show') || $(this).hasClass('match')) { return true; }
+  if ($(this).hasClass('show') || $(this).hasClass('match')) {
+   return true;
+  }
   let card = $(this).children().attr('class');
   $(this).addClass('open show');
   opened.push(card);;
@@ -87,28 +90,26 @@ function addCardListener() {
  })
 }
 
-//Uses the grading scale to decide how many stars a player will earn based on
-//number of moves
-
+//Uses the grading scale to decide how many stars a player
+//will earn based on number of moves
 function ratings(moves) {
- let rating = 3;
+ rating = 3;
  if (moves > stars3 && moves < stars2) {
-  $('.fa-star').eq(2).removeClass('fa-star').addClass('fa-star-o');
+  $('.fa-star').eq(3).removeClass('fa-star').addClass('fa-star-o');
  }
  if (moves > stars2 && moves < stars1) {
-  $('.fa-star').eq(1).removeClass('fa-star').addClass('fa-star-o');
+  $('.fa-star').eq(2).removeClass('fa-star').addClass('fa-star-o');
   rating = 2;
  }
  if (moves > stars1) {
-  $('.fa-star').eq(0).removeClass('fa-star').addClass('fa-star-o');
+  $('.fa-star').eq(1).removeClass('fa-star').addClass('fa-star-o');
   rating = 1;
  }
- return {
-  score: rating
- };
+ return rating;
 }
 
-//This is the time function to tell how long the game has lasted
+//This is the time function to tell how long the game has
+//lasted
 function initTime() {
  nowTime = setInterval(function() {
   $('.timer').text(Math.round((new Date - start) / 1000, 0) + " Seconds");
@@ -117,7 +118,8 @@ function initTime() {
 }
 
 
-//Reset function resets the board, moves, and timer to 0 to start a new game.
+//Reset function resets the board, moves, and timer to 0
+//to start a new game.
 function resetTimer(timer) {
  $('.restart').on('click', function() {
   for (i = 0; i < sCards.length; i++) {
@@ -129,17 +131,32 @@ function resetTimer(timer) {
  });
 }
 
-//game Ending Modal
-function endGame(moves, rating) {
-  let endTime= Math.round((new Date - start) / 1000, 0);
-  endMoves = moves-1;
-  endRating = rating;
-  console.log(endTime);
-  console.log(endMoves);
-  console.log(endRating);
+//game Ending Modal, gathers all stats to put into popup.
+function endGame(moves) {
+ modal();
+ let endTime = Math.round((new Date - start) / 1000, 0);
+ endMoves = moves - 1;
+ endRating = rating;
+ console.log(endTime);
+ console.log(endMoves);
+ console.log(rating);
+ $('#endTime').text(endTime);
+ $('#endMoves').text(endMoves);
+ $('#endRating').text(endRating);
 }
 
-
-
-
+//creates modal, pulling data from endGame, and can close the modal after.
+function modal() {
+ $('.overlay').css("display", "block");
+ $('.score-panel').css("display", "none");
+ $('.close').click(function() {
+  $('.overlay').css("display", "none");
+  $('.score-panel').css("display", "block");
+  for (i = 0; i < sCards.length; i++) {
+   $('.card').remove();
+   start = new Date;
+   init();
+  }
+ })
+}
 init();
