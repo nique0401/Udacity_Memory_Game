@@ -7,6 +7,7 @@ let moves = 0;
 let stars3 = 14;
 let stars2 = 18;
 let stars1 = 22;
+let rating = 0
 let totalmatches = cards.length / 2;
 let second = 0;
 let nowTime;
@@ -76,7 +77,7 @@ function addCardListener() {
    }
    opened = [];
    moves++
-   rating(moves);
+   ratings(moves);
    console.log(totalmatches);
    console.log(match);
    if (totalmatches === match) {
@@ -89,7 +90,7 @@ function addCardListener() {
 //Uses the grading scale to decide how many stars a player will earn based on
 //number of moves
 
-function rating(moves) {
+function ratings(moves) {
  let rating = 3;
  if (moves > stars3 && moves < stars2) {
   $('.fa-star').eq(2).removeClass('fa-star').addClass('fa-star-o');
@@ -129,7 +130,14 @@ function resetTimer(timer) {
 }
 
 //game Ending Modal
-
+function endGame(moves, rating) {
+  let endTime= Math.round((new Date - start) / 1000, 0);
+  endMoves = moves-1;
+  endRating = rating;
+  console.log(endTime);
+  console.log(endMoves);
+  console.log(endRating);
+}
 
 
 

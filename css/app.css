@@ -153,6 +153,45 @@ h1 {
   display: inline-block;
 }
 
+@media (min-width:1000px){
+  .container{
+    display:flex-wrap;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  h1{
+    width:100%;
+    text-align: center;
+  }
+  .header {
+    display: flex;
+    width:20%;
+    min-height:680px;
+    font-size: 110%;
+    justify-content: center;
+    margin: 0 0 3em;
+
+  }
+  .score-panel{
+    min-height: 600px;
+  }
+  .deck{
+    display: flex;
+  }
+  .timer{
+    width: 100%;
+  }
+  .moves{
+    width: 100%;
+  }
+  .score-panel .stars {
+    width:100%
+  }
+  .time{
+    display:none;
+  }
+}
 @media (min-width:900px) and (max-width:999) {
   .container{
     display:flex;
