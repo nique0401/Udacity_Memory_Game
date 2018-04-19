@@ -18,7 +18,7 @@ let cards = [
 ];
 let opened = [];
 let sCards = shuffle(cards);
-let wait = 420;
+let wait = 500;
 let match = 0;
 let moves = 0;
 let stars3 = 14;
@@ -63,7 +63,6 @@ function init() {
     );
     $(".timer").css("display", "none");
     addCardListener();
-    resetTimer(nowTime);
     second = 0;
   }
 }
@@ -162,19 +161,17 @@ function initTime() {
   }, wait);
 }
 
-//Reset function resets the board, moves, and timer to 0
+//resets the board, moves, and timer to 0
 //to start a new game.
-function resetTimer(timer) {
   $(".restart").on("click", function() {
     for (i = 0; i < sCards.length; i++) {
       $(".card").remove();
-      init();
-      opened = [];
-      wait(2000);
     }
+    opened = [];
+    init();
     $(".timer").css("display", "none");
   });
-}
+
 
 //game Ending Modal, gathers all stats to put into popup.
 function endGame(moves) {
