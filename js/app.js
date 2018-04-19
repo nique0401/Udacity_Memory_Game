@@ -130,6 +130,7 @@ function resetTimer(timer) {
   for (i = 0; i < sCards.length; i++) {
    $('.card').remove();
    init();
+   opened = [];
    wait(2000);
   };
      $('.timer').css('display','none');
