@@ -61,10 +61,10 @@ function init() {
           '"></i></li>'
       )
     );
+  }
     $(".timer").css("display", "none");
     addCardListener();
     second = 0;
-  }
 }
 
 //This function listens for clicks, and decides if the cards match or dont match.
@@ -170,6 +170,9 @@ function initTime() {
     opened = [];
     init();
     $(".timer").css("display", "none");
+    moves = 0;
+    $(".fa-star-o").removeClass("fa-star-o").addClass("fa-star");
+
   });
 
 
